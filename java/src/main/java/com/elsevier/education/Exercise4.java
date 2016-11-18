@@ -3,24 +3,25 @@ package com.elsevier.education;
 /**
 
 TODO Is Counter thread-safe? If so, why, and if not, how can we fix it?
-
+Answer: No, it is not safe because multiple threads can access it concurrently.
+We can use AtomicInteger to fix it.
 */
 public class Exercise4 {
 
 	public static class Counter {
 		
-		private int count = 0;
+		private static java.util.concurrent.atomic.AtomicInteger count = new java.util.concurrent.atomic.AtomicInteger(0);
 		
 		public int increment() {
-			return ++count;
+			return count.incrementAndGet();
 		}
 		
 		public int getCount() {
-			return count;
+			return count.get();
 		}
 		
 		public void resetCount() {
-			count = 0;
+			count = new java.util.concurrent.atomic.AtomicInteger(0);
 		}
 
 	}
